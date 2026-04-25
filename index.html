@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Daniel A. Asibu — Data Analyst</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f7f5f2;
+      --ink: #1a1814;
+      --muted: #7a7570;
+      --accent: #2d6a4f;
+      --accent-light: #d8f3dc;
+      --rule: #e0dcd6;
+      --card: #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      font-size: 16px;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.2rem 4rem;
+      background: rgba(247,245,242,0.88);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--rule);
+    }
+    .nav-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.2rem;
+      letter-spacing: 0.02em;
+    }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--ink); }
+
+    /* HERO */
+    header {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 8rem 4rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      max-width: 1100px;
+      width: 100%;
+      margin: auto;
+      align-items: center;
+    }
+    .hero-tag {
+      display: inline-block;
+      font-size: 0.75rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: var(--accent-light);
+      padding: 0.3rem 0.9rem;
+      border-radius: 2rem;
+      margin-bottom: 1.5rem;
+    }
+    h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.8rem, 5vw, 4.2rem);
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+      margin-bottom: 1.5rem;
+    }
+    h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+    .hero-bio {
+      color: var(--muted);
+      font-size: 1.05rem;
+      max-width: 420px;
+      margin-bottom: 2.5rem;
+    }
+    .hero-cta {
+      display: flex; gap: 1rem; flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-block;
+      padding: 0.75rem 2rem;
+      border-radius: 0.25rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .btn-primary {
+      background: var(--ink);
+      color: var(--bg);
+    }
+    .btn-primary:hover { background: var(--accent); }
+    .btn-outline {
+      border: 1px solid var(--ink);
+      color: var(--ink);
+    }
+    .btn-outline:hover { background: var(--ink); color: var(--bg); }
+
+    /* Hero visual */
+    .hero-visual {
+      display: flex; justify-content: center; align-items: center;
+    }
+    .avatar-ring {
+      width: 340px; height: 340px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent-light) 0%, #b7e4c7 100%);
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+    }
+    .avatar-inner {
+      width: 290px; height: 290px;
+      border-radius: 50%;
+      background: var(--bg);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'DM Serif Display', serif;
+      font-size: 6rem;
+      color: var(--accent);
+    }
+    .floating-stat {
+      position: absolute;
+      background: var(--card);
+      border: 1px solid var(--rule);
+      border-radius: 0.5rem;
+      padding: 0.6rem 1rem;
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--ink);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      white-space: nowrap;
+    }
+    .fs1 { top: 30px; left: -30px; }
+    .fs2 { bottom: 50px; right: -40px; }
+    .fs3 { top: 50%; left: -60px; transform: translateY(-50%); }
+
+    /* SECTION SHARED */
+    section { padding: 6rem 4rem; }
+    .section-inner { max-width: 1100px; margin: auto; }
+    .section-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.6rem;
+    }
+    .section-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+    .section-sub {
+      color: var(--muted);
+      max-width: 520px;
+      margin-bottom: 3.5rem;
+    }
+    hr.rule { border: none; border-top: 1px solid var(--rule); margin: 0; }
+
+    /* SKILLS */
+    #skills { background: var(--card); }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1.5rem;
+    }
+    .skill-card {
+      border: 1px solid var(--rule);
+      border-radius: 0.5rem;
+      padding: 1.6rem 1.4rem;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .skill-card:hover {
+      border-color: var(--accent);
+      box-shadow: 0 4px 20px rgba(45,106,79,0.08);
+    }
+    .skill-icon {
+      font-size: 1.6rem;
+      margin-bottom: 0.8rem;
+    }
+    .skill-name {
+      font-weight: 500;
+      font-size: 0.95rem;
+      margin-bottom: 0.3rem;
+    }
+    .skill-desc {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    /* PROJECTS */
+    #projects { background: var(--bg); }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    .project-card {
+      background: var(--card);
+      border: 1px solid var(--rule);
+      border-radius: 0.5rem;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .project-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--accent), #74c69d);
+    }
+    .project-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.08);
+    }
+    .project-tag {
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.8rem;
+    }
+    .project-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.15rem;
+      margin-bottom: 0.6rem;
+    }
+    .project-desc {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 1.2rem;
+    }
+    .project-tools {
+      display: flex; flex-wrap: wrap; gap: 0.4rem;
+    }
+    .tool-badge {
+      font-size: 0.7rem;
+      background: var(--accent-light);
+      color: var(--accent);
+      padding: 0.2rem 0.6rem;
+      border-radius: 2rem;
+      font-weight: 500;
+    }
+    .coming-soon {
+      opacity: 0.55;
+    }
+    .coming-soon .project-title::after {
+      content: ' — Coming Soon';
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ABOUT */
+    #about { background: var(--ink); color: var(--bg); }
+    #about .section-label { color: #74c69d; }
+    #about .section-title { color: var(--bg); }
+    #about .section-sub { color: #a0998f; }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    .about-text p {
+      color: #c8c2ba;
+      margin-bottom: 1.2rem;
+    }
+    .about-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+    .stat-box {
+      border: 1px solid #333;
+      border-radius: 0.5rem;
+      padding: 1.5rem;
+    }
+    .stat-num {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2.2rem;
+      color: #74c69d;
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+    .stat-label { font-size: 0.8rem; color: #7a7570; }
+
+    /* CONTACT */
+    #contact { background: var(--bg); }
+    .contact-box {
+      background: var(--card);
+      border: 1px solid var(--rule);
+      border-radius: 0.75rem;
+      padding: 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .contact-left h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+    }
+    .contact-left p { color: var(--muted); font-size: 0.9rem; }
+    .contact-links { display: flex; flex-direction: column; gap: 0.8rem; }
+    .contact-link {
+      display: flex; align-items: center; gap: 0.8rem;
+      text-decoration: none; color: var(--ink);
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+    .contact-link:hover { color: var(--accent); }
+    .contact-link .icon {
+      width: 36px; height: 36px;
+      border: 1px solid var(--rule);
+      border-radius: 0.35rem;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 2rem 4rem;
+      border-top: 1px solid var(--rule);
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up { animation: fadeUp 0.7s ease both; }
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.22s; }
+    .delay-3 { animation-delay: 0.36s; }
+    .delay-4 { animation-delay: 0.5s; }
+
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      header, section { padding: 5rem 1.5rem 3rem; }
+      .hero-grid, .about-grid { grid-template-columns: 1fr; }
+      .hero-visual { display: none; }
+      .contact-box { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">Daniel A. Asibu</div>
+    <ul class="nav-links">
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <header>
+    <div class="hero-grid">
+      <div>
+        <div class="hero-tag fade-up">Data Analyst</div>
+        <h1 class="fade-up delay-1">
+          Turning data into<br><em>clear decisions</em>
+        </h1>
+        <p class="hero-bio fade-up delay-2">
+          Hi, I'm Daniel Abaogye Asibu — a data analyst who transforms raw numbers
+          into compelling stories using SQL, Excel, Power BI, and Tableau.
+        </p>
+        <div class="hero-cta fade-up delay-3">
+          <a href="#projects" class="btn btn-primary">View Projects</a>
+          <a href="#contact" class="btn btn-outline">Get in Touch</a>
+        </div>
+      </div>
+      <div class="hero-visual fade-up delay-4">
+        <div class="avatar-ring">
+          <div class="avatar-inner">DA</div>
+          <div class="floating-stat fs1">📊 Power BI</div>
+          <div class="floating-stat fs2">🗄️ SQL Expert</div>
+          <div class="floating-stat fs3">📈 Tableau</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <hr class="rule"/>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="section-inner">
+      <div class="section-label">What I Work With</div>
+      <h2 class="section-title">Core Skills</h2>
+      <p class="section-sub">My toolkit for extracting meaning from data and communicating it effectively.</p>
+      <div class="skills-grid">
+        <div class="skill-card">
+          <div class="skill-icon">🗄️</div>
+          <div class="skill-name">SQL</div>
+          <div class="skill-desc">Querying, joining, and aggregating data across relational databases to surface key insights.</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-icon">📊</div>
+          <div class="skill-name">Microsoft Excel</div>
+          <div class="skill-desc">Advanced formulas, pivot tables, and data modelling for rapid analysis and reporting.</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-icon">📈</div>
+          <div class="skill-name">Power BI</div>
+          <div class="skill-desc">Building interactive dashboards and reports that make complex data instantly readable.</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-icon">🔵</div>
+          <div class="skill-name">Tableau</div>
+          <div class="skill-desc">Crafting beautiful, exploratory visualisations that tell a clear data story.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule"/>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="section-inner">
+      <div class="section-label">Work</div>
+      <h2 class="section-title">Projects</h2>
+      <p class="section-sub">Projects will appear here as I build them. Each one will demonstrate a real-world data problem solved end-to-end.</p>
+      <div class="projects-grid">
+        <div class="project-card coming-soon">
+          <div class="project-tag">SQL · Excel</div>
+          <div class="project-title">Sales Performance Analysis</div>
+          <div class="project-desc">An end-to-end analysis of sales trends, regional performance, and top products using SQL queries and Excel dashboards.</div>
+          <div class="project-tools">
+            <span class="tool-badge">SQL</span>
+            <span class="tool-badge">Excel</span>
+          </div>
+        </div>
+        <div class="project-card coming-soon">
+          <div class="project-tag">Power BI</div>
+          <div class="project-title">HR Analytics Dashboard</div>
+          <div class="project-desc">Interactive Power BI dashboard tracking headcount, attrition rate, and employee satisfaction across departments.</div>
+          <div class="project-tools">
+            <span class="tool-badge">Power BI</span>
+            <span class="tool-badge">Excel</span>
+          </div>
+        </div>
+        <div class="project-card coming-soon">
+          <div class="project-tag">Tableau</div>
+          <div class="project-title">Customer Segmentation</div>
+          <div class="project-desc">Tableau visualisation segmenting customers by behaviour and purchase patterns to support marketing strategy.</div>
+          <div class="project-tools">
+            <span class="tool-badge">Tableau</span>
+            <span class="tool-badge">SQL</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-inner">
+      <div class="about-grid">
+        <div class="about-text">
+          <div class="section-label">About Me</div>
+          <h2 class="section-title">Passionate about data-driven decisions</h2>
+          <p>I'm Daniel Abaogye Asibu, a data analyst committed to helping organisations make smarter decisions through clear, honest analysis.</p>
+          <p>I work with SQL, Excel, Power BI, and Tableau to collect, clean, and visualise data — turning numbers into narratives that non-technical stakeholders can act on.</p>
+          <p>I'm currently building my project portfolio and always open to opportunities, collaborations, and conversations about data.</p>
+          <br/>
+          <a href="#contact" class="btn btn-outline" style="border-color:#444; color:var(--bg);">Let's Connect →</a>
+        </div>
+        <div class="about-stats">
+          <div class="stat-box">
+            <div class="stat-num">4</div>
+            <div class="stat-label">Core tools mastered</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num">∞</div>
+            <div class="stat-label">Curiosity for data</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num">0→</div>
+            <div class="stat-label">Projects in progress</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num">100%</div>
+            <div class="stat-label">Committed to growth</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-inner">
+      <div class="section-label">Get In Touch</div>
+      <h2 class="section-title">Let's work together</h2>
+      <div class="contact-box">
+        <div class="contact-left">
+          <h2>Say Hello 👋</h2>
+          <p>Open to analyst roles, freelance projects, and data collaborations.</p>
+        </div>
+        <div class="contact-links">
+          <a class="contact-link" href="mailto:abaogyeasibudaniel@gmail.com">
+            <span class="icon">✉️</span> abaogyeasibudaniel@gmail.com
+          </a>
+          <a class="contact-link" href="https://github.com/Daniel-a-asibu" target="_blank">
+            <span class="icon">🐙</span> github.com/Daniel-a-asibu
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2026 Daniel Abaogye Asibu · Built with GitHub Pages</p>
+  </footer>
+
+</body>
+</html>
